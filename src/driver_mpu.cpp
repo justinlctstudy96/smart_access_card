@@ -15,7 +15,7 @@ void mpu_init()
     // mpu.setSrd(19);
 
     //mpu.enableWakeOnMotion(500, MPU9250::LP_ACCEL_ODR_15_63HZ);
-    mpu.enableWakeOnMotion(700, MPU9250::LP_ACCEL_ODR_15_63HZ);
+    mpu.enableWakeOnMotion(980, MPU9250::LP_ACCEL_ODR_7_81HZ);
 
     pinMode(PIN_MPU_INT, INPUT);
     delay(100);
