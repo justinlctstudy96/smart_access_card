@@ -7,6 +7,5 @@
 
 void mpu_init();
 void mpu_show();
-void mpu_int_clear();
 
 #endif

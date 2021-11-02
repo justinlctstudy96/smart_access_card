@@ -14,7 +14,7 @@
 #define PIN_VBUS_ADC 36
 
 //MPU9250
-#define PIN_MPU_INT 38
+#define PIN_MPU_INT 39
 #define PIN_MPU_SDA 21
 #define PIN_MPU_SCL 22
 

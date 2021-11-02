@@ -2,6 +2,8 @@
 
 TFT_eSPI tft = TFT_eSPI();
 
+int i;
+
 void tft_init()
 {
     tft.begin();
@@ -14,8 +16,8 @@ void tft_init()
 
 void tft_show()
 {
-    // tft.drawString("Count: ", 25, 5);
-    // tft.drawNumber(i++, 100, 5);
-    // delay(200);
-    // tft.fillRoundRect(100, 5, 50, 15, 0, TFT_BLACK);
+    tft.drawString("Count: ", 25, 5);
+    tft.drawNumber(i++, 100, 5);
+    delay(200);
+    tft.fillRoundRect(100, 5, 50, 15, 0, TFT_BLACK);
 }

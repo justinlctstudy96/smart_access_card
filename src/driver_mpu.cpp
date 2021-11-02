@@ -1,41 +1,34 @@
 #include "driver_mpu.h"
 
-MPU9250 mpu(0x69);
+MPU9250 mpu(Wire, 0x69);
 
 int16_t x, y, z;
 
 void mpu_init()
 {
-    //INIT
-    Wire.begin();
-    mpu.initialize();
+    Serial.print("MPU9250 Init : ");
+    Serial.println(mpu.begin2());
 
-    //INT
-    //set Interrupt Logic: 0 High  1 Low
-    //set Interrupt Drive Output Mode: 0 push-pull  1 open-drain
+    // mpu.setAccelRange(MPU9250::ACCEL_RANGE_8G);
+    // mpu.setGyroRange(MPU9250::GYRO_RANGE_500DPS);
+    // mpu.setDlpfBandwidth(MPU9250::DLPF_BANDWIDTH_20HZ);
+    // mpu.setSrd(19);
+
+    //mpu.enableWakeOnMotion(500, MPU9250::LP_ACCEL_ODR_15_63HZ);
+    mpu.enableWakeOnMotion(700, MPU9250::LP_ACCEL_ODR_15_63HZ);
+
     pinMode(PIN_MPU_INT, INPUT);
-    mpu.setInterruptMode(0);
-    mpu.setInterruptDrive(0);
-    mpu.setInterruptLatch(1);
-
-    mpu.setIntEnabled(B01000000);
-    mpu.setIntMotionEnabled(true);
-    mpu.setMotionDetectionThreshold(1);
-    mpu.setMotionDetectionDuration(1);
+    delay(100);
 }
 
 void mpu_show()
 {
-    mpu.getAcceleration(&x, &y, &z);
+    mpu.readSensor();
 
-    Serial.println(x);
-    Serial.println(y);
-    Serial.println(z);
-    Serial.println(mpu.getIntFreefallStatus());
-    Serial.println(digitalRead(PIN_MPU_INT));
+    Serial.println("---------------------");
+    Serial.println(mpu.getAccelX_mss(),3);
+    Serial.println(mpu.getAccelY_mss(),3);
+    Serial.println(mpu.getAccelZ_mss(),3);
+    // Serial.println(mpu.whoAmI());
 }
 
-void mpu_int_clear()
-{
-    mpu.setInterruptLatchClear(1);
-}

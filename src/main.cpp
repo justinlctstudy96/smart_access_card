@@ -1,13 +1,14 @@
 #include "pin_define.h"
 
 #include "adc_bat.h"
-//#include "driver_tft.h"
+#include "driver_tft.h"
 #include "driver_mpu.h"
 
 u_long loop_temp_time;
 
-void init() {
+bool deep_sleep;
 
+void init() {
   Serial.begin(115200);
 
   //LED
@@ -27,13 +28,27 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("WakeUp");
+  deep_sleep = true;
 
-  if(millis() - loop_temp_time >= 1000)
+  if(deep_sleep == true)
   {
-    loop_temp_time = millis();
-    Serial.println("----------" + String(millis()) + "----------");
-
-    bat_show();
-    mpu_show();
+    Serial.println("Deepsleep");
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_39, HIGH);
+    esp_deep_sleep_start();
   }
+
+
+
+
+  // if(millis() - loop_temp_time >= 100)
+  // {
+  //   loop_temp_time = millis();
+  //   Serial.println("----------" + String(millis()) + "----------");
+
+  //   //tft_show();
+  //   //bat_show();
+  //   //mpu_show();
+  //   Serial.println(digitalRead(PIN_MPU_INT));
+  // }
 }
