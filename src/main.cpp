@@ -25,7 +25,9 @@ void init() {
   mpu_init();
 
   wifi_init();
+  delay(500);
   mqtt_init();
+  delay(500);
 }
 
 void setup() {
@@ -34,14 +36,20 @@ void setup() {
 
 void loop() {
 
-  if(millis() - loop_temp_time >= 1000)
+
+
+  if(millis() - loop_temp_time >= 100)
   {
     loop_temp_time = millis();
     Serial.println("----------" + String(millis()) + "----------");
 
     bat_show();
     mpu_show();
-
+    if(!wifi_stat()){
+      Serial.println("wifi not connected");
+      wifi_init();
+      delay(500);
+    }
     mqttpub();
   }
 }

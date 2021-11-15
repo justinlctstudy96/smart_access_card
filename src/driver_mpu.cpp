@@ -26,11 +26,20 @@ void mpu_init()
 
 void mpu_show()
 {
-    mpu.getAcceleration(&x, &y, &z);
-
-    Serial.println(x);
-    Serial.println(y);
-    Serial.println(z);
+    // mpu.getAcceleration(&x, &y, &z);
+    mpu.getMotion9(&ax, &ay, &ax, &gx, &gy, &az, &mx, &my, &mz);
+    Serial.println("acceleration: ");
+    Serial.println(ax);
+    Serial.println(ay);
+    Serial.println(az);
+    Serial.println("gyro: ");
+    Serial.println(gx);
+    Serial.println(gy);
+    Serial.println(gz);
+    Serial.println("magnetic: ");
+    Serial.println(mx);
+    Serial.println(my);
+    Serial.println(mz);
     Serial.println(mpu.getIntFreefallStatus());
     Serial.println(digitalRead(PIN_MPU_INT));
 }
