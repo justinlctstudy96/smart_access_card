@@ -1,7 +1,7 @@
 #include "pin_define.h"
 
 #include "adc_bat.h"
-//#include "driver_tft.h"
+#include "driver_tft.h"
 #include "driver_mpu.h"
 // #include "bluetooth.h"
 #include "wifi_c.h"
@@ -9,8 +9,9 @@
 
 u_long loop_temp_time;
 
-void init() {
+bool deep_sleep;
 
+void init() {
   Serial.begin(115200);
   // bluetooth_init();
   //LED
@@ -35,13 +36,17 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("WakeUp");
+  deep_sleep = true;
 
 
 
   if(millis() - loop_temp_time >= 100)
   {
-    loop_temp_time = millis();
-    Serial.println("----------" + String(millis()) + "----------");
+    Serial.println("Deepsleep");
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_39, HIGH);
+    esp_deep_sleep_start();
+  }
 
     bat_show();
     mpu_show();

@@ -10,6 +10,5 @@ extern int16_t ax, ay, az, gx, gy, gz, mx, my, mz;
 
 void mpu_init();
 void mpu_show();
-void mpu_int_clear();
 
 #endif
